@@ -2,18 +2,18 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'sidewidget.dart';
+import 'sidewidgetclient.dart';
 
 
 
-class DrainMapScreen extends StatefulWidget {
-  const DrainMapScreen({super.key});
+class DrainMapScreenclient extends StatefulWidget {
+  const DrainMapScreenclient({super.key});
 
   @override
-  State<DrainMapScreen> createState() => _DrainMapScreenState();
+  State<DrainMapScreenclient> createState() => _DrainMapScreenState();
 }
 
-class _DrainMapScreenState extends State<DrainMapScreen> {
+class _DrainMapScreenState extends State<DrainMapScreenclient> {
   Map<String, dynamic> _drainMap = {}; // Initialize as empty map
   Set<Polyline> _drainPolylines = {};
   Set<Marker> _markers = {};
@@ -179,7 +179,7 @@ class _DrainMapScreenState extends State<DrainMapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const AppDrawer(currentScreen: 'Drain Map'),
+      drawer: const AppDrawerclient(currentScreen: 'Drain Map'),
       appBar: AppBar(
           backgroundColor: Colors.lightBlue, // Sky blue background
           title: const Text(

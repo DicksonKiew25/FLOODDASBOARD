@@ -1,30 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'troublescorescreen.dart';
 
-import 'monitorscreen.dart';
-import 'loginscreen.dart';
-import 'addordeletedrain.dart';
-import 'drainmapscreen.dart';
+import 'monitorscreenclient.dart';
+import 'drainmapscreenclient.dart';
+import 'loginscreen.dart'; // ✅ Import the LoginPage
 
 final Color primaryColor = Color(0xFF0062BD);
 final Color secondaryColor = Color(0xFF00BFA6);
 final Color accentColor = Color(0xFFFF6F61);
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp2 extends StatelessWidget {
+  const MyApp2({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Drain Tracker',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue)
-            .copyWith(
-              primary: primaryColor,
-              secondary: secondaryColor,
-              tertiary: accentColor,
-            ),
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(
+          primary: primaryColor,
+          secondary: secondaryColor,
+          tertiary: accentColor,
+        ),
         textTheme: GoogleFonts.poppinsTextTheme(),
         drawerTheme: DrawerThemeData(
           backgroundColor: const Color.fromARGB(255, 38, 201, 242),
@@ -32,7 +29,7 @@ class MyApp extends StatelessWidget {
         appBarTheme: AppBarTheme(
           backgroundColor: primaryColor,
           elevation: 5,
-          shadowColor: primaryColor.withValues(alpha: 0.5),
+          shadowColor: primaryColor.withOpacity(0.5),
           titleTextStyle: GoogleFonts.poppins(
             color: Colors.white,
             fontWeight: FontWeight.w600,
@@ -58,8 +55,7 @@ class MyApp extends StatelessWidget {
         inputDecorationTheme: InputDecorationTheme(
           filled: true,
           fillColor: const Color.fromARGB(255, 60, 188, 252),
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
             borderSide: BorderSide.none,
@@ -68,22 +64,21 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      
     );
   }
 }
 
-class AppDrawer extends StatelessWidget {
+class AppDrawerclient extends StatelessWidget {
   final String currentScreen;
 
-  const AppDrawer({super.key, required this.currentScreen});
+  const AppDrawerclient({super.key, required this.currentScreen});
 
   @override
   Widget build(BuildContext context) {
     Widget buildTile(String title, IconData icon, Widget destination) {
       final bool isSelected = currentScreen == title;
       return Material(
-        color: isSelected ? primaryColor.withValues(alpha: 0.15) : Colors.transparent,
+        color: isSelected ? primaryColor.withOpacity(0.15) : Colors.transparent,
         child: ListTile(
           leading: Icon(icon,
               color: isSelected ? primaryColor : Colors.grey.shade700,
@@ -96,8 +91,7 @@ class AppDrawer extends StatelessWidget {
               color: isSelected ? primaryColor : Colors.grey.shade800,
             ),
           ),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           horizontalTitleGap: 8,
           contentPadding: const EdgeInsets.symmetric(horizontal: 20),
           onTap: () {
@@ -109,16 +103,13 @@ class AppDrawer extends StatelessWidget {
               context,
               PageRouteBuilder(
                 pageBuilder: (_, __, ___) => destination,
-                transitionsBuilder:
-                    (_, animation, __, child) => FadeTransition(
-                  opacity: animation,
-                  child: child,
-                ),
+                transitionsBuilder: (_, animation, __, child) =>
+                    FadeTransition(opacity: animation, child: child),
                 transitionDuration: const Duration(milliseconds: 350),
               ),
             );
           },
-          hoverColor: primaryColor.withValues(alpha:0.1),
+          hoverColor: primaryColor.withOpacity(0.1),
         ),
       );
     }
@@ -140,7 +131,7 @@ class AppDrawer extends StatelessWidget {
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: primaryColor.withValues(alpha: 0.4),
+                    color: primaryColor.withOpacity(0.4),
                     blurRadius: 8,
                     offset: const Offset(0, 2),
                   ),
@@ -169,12 +160,8 @@ class AppDrawer extends StatelessWidget {
               child: ListView(
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 children: [
-                
-                  buildTile('Drain Map', Icons.map_outlined, const DrainMapScreen()),
-
-                  buildTile('Monitor', Icons.monitor_outlined, const MonitorScreen()),
-                  buildTile('Status Maintenance', Icons.edit_outlined, const AddDeleteDrainScreen()),
-                  
+                  buildTile('Drain Map', Icons.map_outlined, const DrainMapScreenclient()),
+                  buildTile('Monitor', Icons.monitor_outlined, const MonitorScreenclient()),
                 ],
               ),
             ),
@@ -214,8 +201,6 @@ class AppDrawer extends StatelessWidget {
                 },
               ),
             ),
-           
-
           ],
         ),
       ),
