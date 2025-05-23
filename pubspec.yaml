@@ -19,6 +19,7 @@ dependencies:
   animated_background: ^2.0.0
   fl_chart: ^0.63.0
   intl: ^0.18.1
+  provider: ^6.1.0
   
 dev_dependencies:
   flutter_test:
@@ -33,3 +34,4 @@ flutter:
     - assets/drain_topology.json
     - assets/background.jpg
     - assets/girl.png
+    - assets/stormchannel.jpg
