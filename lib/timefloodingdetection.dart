@@ -143,14 +143,14 @@ class RegionStatus extends StatefulWidget {
 }
 
 class _RegionStatusState extends State<RegionStatus> with SingleTickerProviderStateMixin {
-  final List<String> regions = const ['Bandar Botanic', 'Bukit Tinggi', 'Subang', 'Kepong', 'Port Klang'];
+  final List<String> regions = const ['Bukit Bintang', 'Pudu', 'Brickfields', 'Kampung ATTAP', 'Bukit Pesekutuan'];
 
   final Map<String, String> regionStatus = {
-    'Bandar Botanic': 'No flood alert',
-    'Bukit Tinggi': 'No flood alert',
-    'Subang': 'No flood alert',
-    'Kepong': 'High risk',
-    'Port Klang': 'Flooding',
+    'Bukit Bintang': 'No flood alert',
+    'Pudu': 'No flood alert',
+    'Brickfields': 'No flood alert',
+    'Kampung ATTAP': 'High risk',
+    'Bukit Pesekutuan': 'Flooding',
   };
 
   late final AnimationController _blinkController;
