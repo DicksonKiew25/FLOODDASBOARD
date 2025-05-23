@@ -27,6 +27,7 @@ class _MonitorScreenState extends State<MonitorScreen> {
 
   final Set<Marker> _markers = {};
   final Set<Polyline> _polylines = {};
+  final Set<Circle> _circles = {};
 
   bool _loading = true;
 
@@ -42,8 +43,13 @@ class _MonitorScreenState extends State<MonitorScreen> {
           await rootBundle.loadString('assets/drain_topology.json');
       final Map<String, dynamic> drains = jsonDecode(jsonString);
 
+      // ✅ Print the entire decoded JSON
+      print('Decoded JSON:');
+      print(jsonEncode(drains)); // Pretty-print as a JSON string
+
       Set<Marker> markers = {};
       Set<Polyline> polylines = {};
+      Set<Circle> circles = {};
       int polylineIdCounter = 1;
 
       drains.forEach((id, data) {
@@ -58,9 +64,34 @@ class _MonitorScreenState extends State<MonitorScreen> {
           ),
         );
 
+        if (id == "drain_014" || id == "drain_045") {
+          circles.add(
+            Circle(
+              circleId: CircleId('circle_$id'),
+              center: LatLng(lat, lng),
+              radius: 500,
+              fillColor: const Color.fromARGB(255, 243, 33, 33).withOpacity(0.3),
+              strokeColor: Colors.transparent,
+              strokeWidth: 0,
+            ),
+          );
+        }
+
+        if (id == "drain_015" || id == "drain_025") {
+          circles.add(
+            Circle(
+              circleId: CircleId('circle_$id'),
+              center: LatLng(lat, lng),
+              radius: 500,
+              fillColor: const Color.fromARGB(255, 243, 194, 33).withOpacity(0.3),
+              strokeColor: Colors.transparent,
+              strokeWidth: 0,
+            ),
+          );
+        }
+
         final List<dynamic> connections = data['connected_to'] ?? [];
         for (var connectedId in connections) {
-          // Check if connected drain exists in map to avoid errors
           if (drains.containsKey(connectedId)) {
             final double connectedLat =
                 (drains[connectedId]['lat'] as num).toDouble();
@@ -88,6 +119,8 @@ class _MonitorScreenState extends State<MonitorScreen> {
         _markers.addAll(markers);
         _polylines.clear();
         _polylines.addAll(polylines);
+        _circles.clear();
+        _circles.addAll(circles);
         _loading = false;
       });
     } catch (e) {
@@ -123,7 +156,7 @@ class _MonitorScreenState extends State<MonitorScreen> {
           padding: EdgeInsets.all(spacing),
           child: Column(
             children: [
-              // TOP PART: 60% height
+              // TOP PART: 60%
               Expanded(
                 flex: 6,
                 child: Row(
@@ -151,6 +184,7 @@ class _MonitorScreenState extends State<MonitorScreen> {
                                   ),
                                   markers: _markers,
                                   polylines: _polylines,
+                                  circles: _circles,
                                   onMapCreated:
                                       (GoogleMapController controller) {
                                     _mapController = controller;
@@ -159,7 +193,6 @@ class _MonitorScreenState extends State<MonitorScreen> {
                         ),
                       ),
                     ),
-
                     // Right Container - 30%
                     Expanded(
                       flex: 3,
@@ -168,15 +201,12 @@ class _MonitorScreenState extends State<MonitorScreen> {
                   ],
                 ),
               ),
-
-              SizedBox(height: spacing), // spacing between top and bottom
-
-              // BOTTOM PART: 40% height
+              SizedBox(height: spacing),
+              // BOTTOM PART: 40%
               Expanded(
                 flex: 4,
                 child: Column(
                   children: [
-                    // Top part of bottom section (30%)
                     Container(
                       height: (MediaQuery.of(context).size.height * 0.4) * 0.3,
                       width: double.infinity,
@@ -188,8 +218,6 @@ class _MonitorScreenState extends State<MonitorScreen> {
                       margin: EdgeInsets.only(bottom: spacing / 2),
                       child: const DrainDropdown(),
                     ),
-
-                    // Bottom part of bottom section (70%)
                     Expanded(
                       child: Container(
                         width: double.infinity,
