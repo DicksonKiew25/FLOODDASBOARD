@@ -65,31 +65,51 @@ class _DrainDropdownState extends State<DrainDropdown> {
 
         const SizedBox(width: 20),
 
-        // Flowrate
-        Expanded(
-          child: Row(
-            children: [
-              const Text("Flowrate:", style: TextStyle(fontWeight: FontWeight.w500)),
-              const SizedBox(width: 8),
-              const Expanded(
-                child: FlowrateWidget(),
+          Expanded(
+            child: Center(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text(
+                    "Flowrate:",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  if (selectedDrain == 'Drain 001')
+                    const SizedBox(
+                      width: 120,
+                      child: FlowrateWidget(),
+                    ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
 
-        const SizedBox(width: 20),
+          const SizedBox(width: 20),
 
-        // Water level
-       Expanded(
-            child: Row(
-              children: [
-                const Text("Water Level:", style: TextStyle(fontWeight: FontWeight.w500)),
-                const SizedBox(width: 8),
-                const Expanded(
-                  child: WaterLevelWidget(),
-                ),
-              ],
+          Expanded(
+            child: Center(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text(
+                    "Water Level:",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  if (selectedDrain == 'Drain 001')
+                    const SizedBox(
+                      width: 120,
+                      child: WaterLevelWidget(),
+                    ),
+                ],
+              ),
             ),
           ),
 

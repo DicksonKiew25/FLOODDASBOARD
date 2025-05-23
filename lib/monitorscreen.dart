@@ -4,6 +4,7 @@ import 'dropdownbutton.dart';
 import 'sidewidget.dart';
 import 'animatedbackground.dart';
 import 'timefloodingdetection.dart';
+import 'locationhistory.dart';
 
 final Color primaryColor = Color.fromARGB(255, 69, 87, 244);
 
@@ -91,7 +92,7 @@ class MonitorScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         padding: const EdgeInsets.all(16),
-                        child: const Center(child: Text("Other content goes here")),
+                        child: const LocationHistoryGraph(),
                       ),
                     ),
                   ],
