@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'dropdownbutton.dart';
 import 'sidewidget.dart';
 import 'animatedbackground.dart';
+import 'timefloodingdetection.dart';
 
 final Color primaryColor = Color.fromARGB(255, 69, 87, 244);
 
@@ -11,8 +12,7 @@ class MonitorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double spacing = 20.0; // ~0.5 cm
-    final Size screenSize = MediaQuery.of(context).size;
+    final double spacing = 20.0;
 
     return Scaffold(
       drawer: const AppDrawer(currentScreen: 'Monitor'),
@@ -55,17 +55,9 @@ class MonitorScreen extends StatelessWidget {
                     ),
                     // Right Container - 30%
                     Expanded(
-                      flex: 3,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        margin: EdgeInsets.only(left: spacing / 2),
-                        padding: const EdgeInsets.all(16),
-                        child: const Center(child: Text("Right Widget")),
+                        flex: 3,
+                        child: const DrainStatusSection(),
                       ),
-                    ),
                   ],
                 ),
               ),
@@ -77,23 +69,21 @@ class MonitorScreen extends StatelessWidget {
                 flex: 4,
                 child: Column(
                   children: [
-                    // Top part of the bottom section (30%)
-                    Expanded(
-                      flex: 3,
-                      child: Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        padding: const EdgeInsets.all(16),
-                        margin: EdgeInsets.only(bottom: spacing / 2),
-                        child: const DrainDropdown(), // Small dropdown in upper part
+                    // Top part of bottom section (30%)
+                    Container(
+                      height: (MediaQuery.of(context).size.height * 0.4) * 0.3,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
                       ),
+                      padding: const EdgeInsets.all(16),
+                      margin: EdgeInsets.only(bottom: spacing / 2),
+                      child: const DrainDropdown(),
                     ),
-                    // Bottom part of the bottom section (70%)
+
+                    // Bottom part of bottom section (70%)
                     Expanded(
-                      flex: 7,
                       child: Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
@@ -101,7 +91,7 @@ class MonitorScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         padding: const EdgeInsets.all(16),
-                        child: const Center(child: Text("Bottom Widget Content")),
+                        child: const Center(child: Text("Other content goes here")),
                       ),
                     ),
                   ],
