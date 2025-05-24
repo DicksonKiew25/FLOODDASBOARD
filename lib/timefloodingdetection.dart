@@ -52,16 +52,38 @@ class _DrainTableState extends State<DrainTable> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
     final random = Random();
 
-    List<Map<String, dynamic>> drains = List.generate(20, (index) {
-      final sensor = sensorTypes[random.nextInt(sensorTypes.length)];
-      final statusIndex = random.nextInt(statuses.length);
-      return {
-        'number': 'Drain ${(index + 1).toString().padLeft(3, '0')}',
-        'sensor': sensor,
-        'status': statuses[statusIndex],
-        'color': statusColors[statusIndex]
-      };
-    });
+    List<Map<String, dynamic>> drains = List.generate(60, (index) {
+        final drainNumber = (index + 1).toString().padLeft(3, '0');
+        final fullNumber = 'Drain $drainNumber';
+
+        // Define blinking and rising drains
+        final blinkingDrains = {'005', '014', '019', '032', '042', '045', '056'};
+        final risingDrains = {'003', '013', '015', '025', '030', '055'};
+
+        String status;
+        int statusIndex;
+
+        if (blinkingDrains.contains(drainNumber)) {
+          status = 'Overflown';
+          statusIndex = statuses.indexOf('Overflown');
+        } else if (risingDrains.contains(drainNumber)) {
+          status = 'Rising';
+          statusIndex = statuses.indexOf('Rising');
+        } else {
+          status = 'Static';
+          statusIndex = statuses.indexOf('Static');
+        }
+
+        final sensor = sensorTypes[random.nextInt(sensorTypes.length)];
+
+        return {
+          'number': fullNumber,
+          'sensor': sensor,
+          'status': status,
+          'color': statusColors[statusIndex]
+        };
+      });
+
 
     return Container(
       padding: const EdgeInsets.all(12),
